@@ -1,0 +1,6 @@
+id=teesimulator_maplesu_skroot
+name=TEESimulator-RS_MapleSU_SKRoot
+version=6.0.32_MapleSU
+versionCode=63200
+author=MapleAutumn (TEESimulator-RS / MapleSU) - SKRoot port
+description=Hardware-backed key attestation simulator (MapleSU 6.0.32 core) packaged as a SKRoot(Pro) module.
