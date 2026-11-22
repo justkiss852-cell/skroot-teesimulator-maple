@@ -16,10 +16,14 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/abcz316/SKRoot-linuxKernelRoot.git skroot
 
-      - name: Copy module into SKRoot tree
+      # ndk-build 的中间路径不能带括号，SDK 里的 "Pro(众测开放中)" 会直接把 make 搞挂，
+      # 所以把 SDK 的 kernel_module_kit 和本模块一起拷到无括号的 work/ 下再编。
+      - name: Copy SDK + module to a paren-free path
         run: |
-          mkdir -p "skroot/Pro(众测开放中)/src/testModule"
-          cp -r module_teesimulator_maple "skroot/Pro(众测开放中)/src/testModule/"
+          mkdir -p work
+          cp -r "skroot/Pro(众测开放中)/src/testModule/kernel_module_kit" work/
+          cp -r module_teesimulator_maple work/
+          ls work
 
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
@@ -30,13 +34,13 @@ jobs:
 
       - name: Build .so
         run: |
-          cd "skroot/Pro(众测开放中)/src/testModule/module_teesimulator_maple/jni"
+          cd work/module_teesimulator_maple/jni
           ndk-build -j4
           ls -l ../libs/arm64-v8a/
 
       - name: Package module zip
         run: |
-          cd "skroot/Pro(众测开放中)/src/testModule/module_teesimulator_maple"
+          cd work/module_teesimulator_maple
           chmod +x ./pack.sh
           ./pack.sh
           ls -lh module_TEESimulator_MapleSU_SKRoot.zip
@@ -45,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: module_TEESimulator_MapleSU_SKRoot
-          path: "skroot/Pro(众测开放中)/src/testModule/module_teesimulator_maple/module_TEESimulator_MapleSU_SKRoot.zip"
+          path: work/module_teesimulator_maple/module_TEESimulator_MapleSU_SKRoot.zip
