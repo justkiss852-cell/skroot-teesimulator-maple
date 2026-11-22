@@ -36,11 +36,11 @@
 #define TEESIM_ID32    "teesimulatormapleskrootpro000001"
 
 // 脚本后端（core/webui.sh）与 .so 两侧共用这些小工具
-using namespace tee;
+using namespace tsu;
 
 namespace {
 
-using namespace tee;
+using namespace tsu;
 
 constexpr const char* kConfigDir   = "/data/adb/tricky_store";
 constexpr const char* kBootLog     = "/data/adb/tricky_store/skroot_boot.log";

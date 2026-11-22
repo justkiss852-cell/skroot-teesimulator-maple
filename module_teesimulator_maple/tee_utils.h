@@ -18,7 +18,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-namespace tee {
+namespace tsu {
 
 // 统一目录形式：保证以 '/' 结尾，方便拼接
 inline std::string normalize_dir(const char* dir) {
@@ -362,4 +362,4 @@ inline bool sanitize_arg(const std::string& in, std::string& out, size_t max_len
     return true;
 }
 
-} // namespace tee
+} // namespace tsu
